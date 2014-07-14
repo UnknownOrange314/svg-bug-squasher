@@ -1,0 +1,3 @@
+function ResultView(canvas,tFun){
+
+}
