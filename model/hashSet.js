@@ -31,11 +31,7 @@ function HashSet(hFun){
     }
 
     this.exportArray=function(){
-        var arrData=[];
-        Object.keys(data).forEach(function(key){
-            arrData.push(data[key]);
-        });
-        return arrData;
+        return Object.keys(data);
     }
 
     this.forEach=function(anon){
