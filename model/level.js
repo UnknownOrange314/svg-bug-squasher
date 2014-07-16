@@ -4,27 +4,29 @@ function Level(diff,height,width){
     this.lastSpawn=this.startTime-999999;
     this.levelHeight=height;
     this.levelWidth=width;
+    this.kills=0;
 }
 
+Level.prototype.addKill=function(){
+    this.kills++;
+}
 Level.prototype.completed=function(){
-    return false;
+    return this.kills>=20;
 }
 
-Level.prototype.getScore=function(){
-    return -1;
-}
+
 
 Level.prototype.spawnBug=function(){
     var curTime=new Date().getTime();
     if(curTime-this.lastSpawn>Level.getSpawnRate(this.difficulty)){
-        var mSpawn=1-Math.pow(2.0,-(this.difficulty)*0.5);
+        var mSpawn=1-Math.pow(2.0,-(this.difficulty-1)*0.5);
         var hSpawn=1-Math.pow(2.0,-(this.difficulty-1)*0.2);
         var typeRoll=Math.random();
         var spawnY=Math.random()*(this.levelHeight-100)+50;
-        if(typeRoll>hSpawn){
+        if(typeRoll<hSpawn){
             return new Bug(Bug.hard,Level.bugSpawnX,spawnY);
         }
-        else if(typeRoll>mSpawn){
+        else if(typeRoll<mSpawn){
             return new Bug(Bug.medium,Level.bugSpawnX,spawnY);
         }else{
             return new Bug(Bug.easy,Level.bugSpawnX,spawnY);
@@ -45,6 +47,8 @@ Level.getSpawnRate=function(difficulty){
     var rate=Math.sqrt(baseTime*difficulty);
     return Math.min(rate,100);
 }
+
+Level.passKills=20;//Number of bugs that need to  be killed to pass a level.
 
 Level.bugSpawnX=20;
 

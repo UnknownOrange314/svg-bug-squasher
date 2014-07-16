@@ -30,8 +30,17 @@ function HashSet(hFun){
         return hashCode in data;
     }
 
+    /**
+     * Exports the data of the set as an array for iteration.
+     * TODO: Find a more efficient way of doing this.
+     * @returns {Array}
+     */
     this.exportArray=function(){
-        return Object.keys(data);
+        var expArray=new Array();
+        Object.keys(data).forEach(function(item){
+            expArray.push(data[item]);
+        });
+        return expArray;
     }
 
     this.forEach=function(anon){

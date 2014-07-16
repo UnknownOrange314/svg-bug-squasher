@@ -23,11 +23,8 @@ function MainView(canvas,x,y){
         var view=new GameView(canvas,showScoreScreen);
         var PID=setInterval(function(){
             view.gameLoop();
-            if(view.gameOver()){
-                clearInterval(PID);
-                var score=view.getScore();
-            }
         },30);
+        view.setLoopId(PID);
 
     }
 
