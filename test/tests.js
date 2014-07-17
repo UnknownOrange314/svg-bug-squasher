@@ -22,7 +22,8 @@ QUnit.asyncTest("Get score test",function(){
         url:server+"getScores",
         type:'get',
         success:function(data){
-            ok(Object.keys(data).length==10);
+            var len=Object.keys(data).length;
+            ok(len==10,len);
             start();
         },
         error:function(xhr,status,error){
@@ -33,8 +34,8 @@ QUnit.asyncTest("Get score test",function(){
     })
 });
 
-QUnit.asyncTest("Add score test",function(){
-    expect(1);
+QUnit.asyncTest("Add high score test",function(){
+    expect(2);
     var scoreInfo={};
     scoreInfo["player"]="test";
     scoreInfo["score"]="999";
@@ -44,6 +45,43 @@ QUnit.asyncTest("Add score test",function(){
         data:scoreInfo,
         success:function(data){
             ok(Object.keys(data).length==10);
+            var hasPlayer=false;
+            Object.keys(data).forEach(function(info){
+                var sInfo=data[info];
+                if(sInfo["player"]=="test"&&sInfo["score"]=="999"){
+                    hasPlayer=true;
+                }
+            });
+            ok(hasPlayer);
+            start();
+        },
+        error:function(xhr,status,error){
+            console.log("Error:"+error);
+            ok(0);
+            start();
+        }
+    })
+});
+
+QUnit.asyncTest("Add low score test",function(){
+    expect(2);
+    var scoreInfo={};
+    scoreInfo["player"]="Low_Score";
+    scoreInfo["score"]="-99";
+    $.ajax({
+        url:server+"addScores",
+        type:'POST',
+        data:scoreInfo,
+        success:function(data){
+            ok(Object.keys(data).length==10);
+            var hasPlayer=false;
+            Object.keys(data).forEach(function(info){
+                var sInfo=data[info];
+                if(sInfo["score"]=="-99"){
+                    hasPlayer=true;
+                }
+            });
+            ok(hasPlayer==false);
             start();
         },
         error:function(xhr,status,error){

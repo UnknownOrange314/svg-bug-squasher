@@ -58,8 +58,8 @@ Bug.medium=function(){}
 Bug.medium.size=20.0;
 Bug.medium.score=2.0;
 Bug.medium.move=function(pt){
-    var newX=pt.getX()+1.5*Math.random()-0.5;
-    var newY=pt.getY()+1.5*Math.random()-0.75;
+    var newX=pt.getX()+5.5*Math.random()-1.5;
+    var newY=pt.getY()+5.5*Math.random()-0.75;
     if(newY<450&&newY>50){//TODO:Make sure that values here are not hardcoded.
         pt.setY(newY);
     }

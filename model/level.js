@@ -7,11 +7,26 @@ function Level(diff,height,width){
     this.kills=0;
 }
 
+
 Level.prototype.addKill=function(){
     this.kills++;
 }
+
+Level.prototype.getRemainingTime=function(){
+    if(this.difficulty>1){
+        return Level.time-((new Date().getTime())-this.startTime);
+    }
+    return Level.firstTime-((new Date().getTime())-this.startTime);
+}
+
 Level.prototype.completed=function(){
-    return this.kills>=20;
+
+    var curTime=new Date().getTime();
+    if(this.difficulty>1){
+        return curTime-this.startTime>Level.time;
+    }else{
+        return curTime-this.startTime>Level.firstTime;
+    }
 }
 
 
@@ -48,8 +63,8 @@ Level.getSpawnRate=function(difficulty){
     return Math.min(rate,100);
 }
 
-Level.passKills=20;//Number of bugs that need to  be killed to pass a level.
 
 Level.bugSpawnX=20;
 
+Level.firstTime=5000; //The time that will be spent on the first level.
 Level.time=60000; //The time that will be spent on each level.

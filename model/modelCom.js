@@ -17,7 +17,6 @@ function ModelCom(){
      * @param r
      */
     this.bugCollision=function(pt,r){
-        console.log("Testing collision");
         bugs.forEach(function(bug){
             if(pt.distance(bug.getLocation())<r+bug.getSize()){
                 level.addKill();
@@ -30,14 +29,15 @@ function ModelCom(){
 
     this.updateGame=function(){
 
+        if(level==null){
+            level=new Level(difficulty,ModelCom.height,ModelCom.width);
+        }
         if(bugs.size()<20){
             bugs.push(level.spawnBug());
         }
+        console.log("Number of bugs:"+bugs.size());
 
-        if(level.completed()){
-            difficulty++;
-            level=new Level(difficulty,ModelCom.height,ModelCom.width);
-        }
+
 
         var bugRenderState=[];
         bugs.forEach(function(bug){
@@ -54,7 +54,25 @@ function ModelCom(){
             toRemove.push(bug);
         });
         deadBugs=[];
-        var gameState= {"bugState":bugRenderState,"score":score,"level":difficulty,"dead":toRemove};
+
+        var remTime=level.getRemainingTime();
+        if(level.completed()){
+            difficulty++;
+            level=null;
+            bugs.forEach(function(bug){
+                toRemove.push(bug.hashCode());
+            });
+            bugs.clear();
+            console.log(bugs.size());
+        }
+
+        var gameState= {
+            "bugState":bugRenderState,
+            "score":score,
+            "level":difficulty,
+            "dead":toRemove,
+            "time":remTime
+        };
         return gameState;
     }
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <link rel="stylesheet" type="text/css"href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body>
-    <div id="canvas_container"></div>
+
     <script src="lib/raphael-min.js"></script>
     <script src="lib/jquery.min.js"></script>
 
@@ -13,11 +13,48 @@
     <script src="model/level.js"></script>
     <script src="model/modelCom.js"></script>
     <script src="model/point.js"></script>
+    <script src="model/scoreCom.js"></script>
 
-    <script src="view/driver.js"></script>
-    <script src="view/mainView.js"></script>
-    <script src="view/gameView.js"></script>
+
+    <script src="view/gameRunner.js"></script>
     <script src="view/resultView.js"></script>
-    <script src="view/welcomeView.js"></script>
+
+</head>
+
+<body ng-app="sampleApp">
+
+
+    <div id="canvas_container"></div>
+
+    <div id="header">
+        <h1>Bug Swatter</h1>
+    </div>
+
+    <div id="navMenu">
+        <nav class="navbar navbar-default" >
+            <div class="container-fluid">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#PlayGame"> Play Game </a></li>
+                        <li><a href="#Welcome">Welcome Screen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+
+
+    <div ng-view id="view" style="z-index:1"></div>
+
+
+
+
+    <script src="lib/angular.min.js"></script>
+    <script src="controller/driver.js"></script>
+
+
 </body>
 </html>

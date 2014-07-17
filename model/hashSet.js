@@ -50,4 +50,9 @@ function HashSet(hFun){
     this.size=function(){
         return size;
     }
+
+    this.clear=function(){
+        data={};
+        size=0;
+    }
 }
