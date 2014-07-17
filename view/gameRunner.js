@@ -20,6 +20,17 @@ GameInstance.endGame=function(){
  */
 function GameRunner(canvas,scoreFun){
 
+    var grass = canvas.image("images/grass.jpg",0,0,800,800);
+    var picnic=canvas.image("images/gameBackground.jpg",10,10,600,600);
+
+    var apples=Array();
+    //For some reason, using a for loop here causes problems.
+    apples.push(canvas.image("images/fruit.png",620,500,100,100));
+    apples.push(canvas.image("images/fruit.png",620,380,100,100));
+    apples.push(canvas.image("images/fruit.png",620,260,100,100));
+
+    var scorePanel=canvas.rect(630,50,140,180);
+    scorePanel.attr({fill: "gray"});
 
     $("#levelDone").hide();
     var score=canvas.text(700,100,"Score");
@@ -36,7 +47,7 @@ function GameRunner(canvas,scoreFun){
     var swatter=canvas.circle(-1,-1,40);
     var curScore=-9999;
 
-    swatter.attr("fill","black");
+    swatter.attr("fill","blue");
 
     var PID=-1;//The ID of the game loop.
 
@@ -61,8 +72,15 @@ function GameRunner(canvas,scoreFun){
     }
 
     $("#nextForm").submit(function(e){
+
         console.log("Going to next level");
         $("#levelDone").hide();
+        picnic.show();
+        grass.show();
+        scorePanel.show();
+        apples.forEach(function(a){
+            a.show();
+        })
         paused=false;
     });
 
@@ -90,13 +108,16 @@ function GameRunner(canvas,scoreFun){
             });
 
             if(gameState["time"]<0){
-                console.log("Current bugs:"+JSON.stringify(Object.keys(bugs)));
-                console.log("Dead bugs:"+gameState["dead"]);
+                scorePanel.hide();
+                picnic.hide();
+                grass.hide();
+                apples.forEach(function(a){
+                    a.hide();
+                })
                 showLevelCont();
                 return;
             }
 
-            console.log("Number of bugs:"+Object.keys(bugs).length);
 
             gameState["bugState"].forEach(function(bug){
                 var ID=bug["id"];
@@ -104,7 +125,7 @@ function GameRunner(canvas,scoreFun){
                     bugs[ID].attr({ cx: bug["xPos"],cy:bug["yPos"]});
                 }else{
                     var circle=canvas.circle(bug["xPos"],bug["yPos"],bug["size"]);
-                    circle.attr("fill","blue");
+                    circle.attr("fill","black");
                     bugs[ID]=circle;
                 }
 
@@ -120,7 +141,7 @@ function GameRunner(canvas,scoreFun){
 
     var transformClick=function(e){
         var posx = e.pageX  - 100;
-        var posy = e.pageY  - 200;
+        var posy = e.pageY  - 300;
         return new Point(posx,posy);
     }
 

@@ -35,9 +35,6 @@ function ModelCom(){
         if(bugs.size()<20){
             bugs.push(level.spawnBug());
         }
-        console.log("Number of bugs:"+bugs.size());
-
-
 
         var bugRenderState=[];
         bugs.forEach(function(bug){
@@ -63,7 +60,6 @@ function ModelCom(){
                 toRemove.push(bug.hashCode());
             });
             bugs.clear();
-            console.log(bugs.size());
         }
 
         var gameState= {
@@ -84,5 +80,5 @@ function ModelCom(){
 ModelCom.maxBugs=10;
 
 //The dimensions of the playing area.
-ModelCom.height=500;
+ModelCom.height=600;
 ModelCom.width=500;

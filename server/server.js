@@ -10,9 +10,10 @@ var data = {};
 
 for(var i=0;i<scores;i++){
     var key=""+i;
-    data[key]={};
-    data[key]["player"]="Nobody";
-    data[key]["score"]="0";
+    var sData={};
+    sData["player"]="Nobody";
+    sData["score"]="";
+    data[key]=sData;
 }
 
 storage.setItem('scores',data);

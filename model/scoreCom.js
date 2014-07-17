@@ -12,13 +12,24 @@ ScoreCom.showScores=function(div){
         url:ScoreCom.server+'getScores',
         type:'get',
         success:function(data){
-            var minScore=99999999999;
+
+            highScoreText+="<table cellspacing='10' align='center' >"
+            highScoreText+="<tHead>" +
+                "<th>Rank  </th>" +
+                "<th>Player    </th>" +
+                "<th>Score    </th>" +
+                "</tHead>";
+            highScoreText+="<tbody>";
+            var i=1;
             Object.keys(data).forEach(function(sInfo){
-                highScoreText+="<p>"+data[sInfo]["player"]+":"+data[sInfo]["score"]+"</p>"
-                if(data[sInfo]["score"]<minScore){
-                    minScore=data[sInfo]["score"];
-                }
+                highScoreText+="<tr>";
+                highScoreText+="<td>"+i+"</td>" +
+                    "<td>"+data[sInfo]["player"]+"</td>"+
+                    "<td>"+data[sInfo]["score"]+"</td>"
+                highScoreText+="</tr>";
+                i++;
             });
+            highScoreText+="</tbody>";
             $(div).html(highScoreText);
         }
     })

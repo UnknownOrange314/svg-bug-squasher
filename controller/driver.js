@@ -36,7 +36,7 @@ sampleApp.controller('PlayGameController', function($scope,$location) {
 
     GameInstance.endGame();
     var cDiv=$('canvas_container');
-    GameInstance.canvas = new Raphael(100,200,800,800);
+    GameInstance.canvas = new Raphael(100,300,800,800);
 
     var endGame=function(score){
         GameInstance.score=score;

@@ -47,7 +47,7 @@ Bug.prototype.exportRenderState=function(){
 }
 
 Bug.easy=function(){}
-Bug.easy.size=50.0;
+Bug.easy.size=25.0;
 Bug.easy.score=1.0;
 Bug.easy.move=function(pt){
     var newX=pt.getX()+1.0;
@@ -55,11 +55,11 @@ Bug.easy.move=function(pt){
 }
 
 Bug.medium=function(){}
-Bug.medium.size=20.0;
+Bug.medium.size=15.0;
 Bug.medium.score=2.0;
 Bug.medium.move=function(pt){
     var newX=pt.getX()+5.5*Math.random()-1.5;
-    var newY=pt.getY()+5.5*Math.random()-0.75;
+    var newY=pt.getY()+10.0*Math.random()-5;
     if(newY<450&&newY>50){//TODO:Make sure that values here are not hardcoded.
         pt.setY(newY);
     }
@@ -67,7 +67,7 @@ Bug.medium.move=function(pt){
 }
 
 Bug.hard=function(){}
-Bug.hard.size=10.0;
+Bug.hard.size=7.0;
 Bug.hard.score=5.0;
 Bug.hard.move=function(pt){
     var newX=pt.getX()+20.0*Math.random()-7.0;
